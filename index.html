@@ -395,34 +395,7 @@
 
     // ✅ Scroll ONLY to Featured Reel
     featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-</script>({ top: 0, behavior: 'smooth' });
-  }
-
-  function openLightbox(src) {
-    const lb = document.getElementById('lightbox');
-    const v = document.getElementById('lightboxVideo');
-    v.src = src; lb.style.display = 'flex';
-  }
-
-  function closeLightbox() {
-    const lb = document.getElementById('lightbox');
-    const v = document.getElementById('lightboxVideo');
-    v.pause(); v.src = ''; lb.style.display = 'none';
-  }
-
-  function filterCards(category, btn) {
-    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.card').forEach(card => {
-      if (category === 'all' || card.dataset.category?.includes(category)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
+  
 </script>
-
 </body>
 </html>
