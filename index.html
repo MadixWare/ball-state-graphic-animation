@@ -147,6 +147,42 @@
       text-decoration: none;
       font-weight: bold;
     }
+/* HERO BACKGROUND ANIMATION */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(186, 12, 47, 0.12),
+      rgba(186, 12, 47, 0.12) 6px,
+      transparent 6px,
+      transparent 18px
+    );
+  animation: moveLines 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes moveLines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 400px 400px;
+  }
+}
+
+/* Keep hero text above animation */
+.hero > div {
+  position: relative;
+  z-index: 1;
+}
   </style>
 </head>
 
