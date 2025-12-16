@@ -35,12 +35,78 @@
       text-align: center;
       padding: 2rem;
       background: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75));
+      position: relative;
+      overflow: hidden;
     }
 
+    /* GLITCHY HERO TITLE */
     .hero h1 {
       font-size: 3.5rem;
       text-transform: uppercase;
       letter-spacing: 3px;
+      position: relative;
+      display: inline-block;
+      color: var(--white);
+      animation: glitchMove 2s infinite;
+    }
+
+    .hero h1::before,
+    .hero h1::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      clip: rect(0, 9999px, 0, 0);
+    }
+
+    .hero h1::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--red);
+      animation: glitchTop 2s infinite linear alternate-reverse;
+    }
+
+    .hero h1::after {
+      left: -2px;
+      text-shadow: -2px 0 var(--white);
+      animation: glitchBottom 2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchMove {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, -1px); }
+      80% { transform: translate(1px, 1px); }
+    }
+
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(0, 9999px, 10px, 0); transform: translate(-2px, -2px); }
+      20% { clip: rect(5px, 9999px, 15px, 0); transform: translate(2px, 0); }
+      30% { clip: rect(10px, 9999px, 20px, 0); transform: translate(-2px, 2px); }
+      40% { clip: rect(15px, 9999px, 25px, 0); transform: translate(2px, -1px); }
+      50% { clip: rect(20px, 9999px, 30px, 0); transform: translate(-1px, 1px); }
+      60% { clip: rect(25px, 9999px, 35px, 0); transform: translate(1px, -2px); }
+      70% { clip: rect(30px, 9999px, 40px, 0); transform: translate(-1px, 2px); }
+      80% { clip: rect(35px, 9999px, 45px, 0); transform: translate(2px, -1px); }
+      90% { clip: rect(40px, 9999px, 50px, 0); transform: translate(-2px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(40px, 9999px, 50px, 0); transform: translate(1px, 1px); }
+      20% { clip: rect(35px, 9999px, 45px, 0); transform: translate(-1px, -1px); }
+      30% { clip: rect(30px, 9999px, 40px, 0); transform: translate(2px, 0); }
+      40% { clip: rect(25px, 9999px, 35px, 0); transform: translate(-2px, 1px); }
+      50% { clip: rect(20px, 9999px, 30px, 0); transform: translate(1px, -2px); }
+      60% { clip: rect(15px, 9999px, 25px, 0); transform: translate(-1px, 2px); }
+      70% { clip: rect(10px, 9999px, 20px, 0); transform: translate(2px, -1px); }
+      80% { clip: rect(5px, 9999px, 15px, 0); transform: translate(-2px, 1px); }
+      90% { clip: rect(0, 9999px, 10px, 0); transform: translate(1px, -1px); }
+      100% { clip: rect(0, 9999px, 0, 0); }
     }
 
     .hero p {
@@ -147,42 +213,33 @@
       text-decoration: none;
       font-weight: bold;
     }
-/* HERO BACKGROUND ANIMATION */
-.hero {
-  position: relative;
-  overflow: hidden;
-}
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      rgba(186, 12, 47, 0.12),
-      rgba(186, 12, 47, 0.12) 6px,
-      transparent 6px,
-      transparent 18px
-    );
-  animation: moveLines 20s linear infinite;
-  z-index: 0;
-}
+    /* HERO BACKGROUND ANIMATION */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(186, 12, 47, 0.12),
+          rgba(186, 12, 47, 0.12) 6px,
+          transparent 6px,
+          transparent 18px
+        );
+      animation: moveLines 20s linear infinite;
+      z-index: 0;
+    }
 
-@keyframes moveLines {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 400px 400px;
-  }
-}
+    @keyframes moveLines {
+      from { background-position: 0 0; }
+      to { background-position: 400px 400px; }
+    }
 
-/* Keep hero text above animation */
-.hero > div {
-  position: relative;
-  z-index: 1;
-}
+    .hero > div {
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 
@@ -191,18 +248,20 @@
 <!-- HERO -->
 <div class="hero">
   <div>
-    <h1>Ball State Football<br>Motion Branding</h1>
+    <h1 data-text="Ball State Football Motion Branding">
+      Ball State Football<br>Motion Branding
+    </h1>
     <p>Game-day visuals • Broadcast-ready motion • Stadium graphics</p>
 
     <div class="credit">Motion Graphics by Madix Ware</div>
 
     <div class="social">
-    <a href="https://instagram.com/mwflickx" target="_blank" aria-label="Instagram">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
-  </svg>
-  @mwflickx
-</a>
+      <a href="https://instagram.com/mwflickx" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
+        </svg>
+        @mwflickx
+      </a>
 
       <a href="mailto:Madix.ware@bsu.edu">Madix.ware@bsu.edu</a>
     </div>
@@ -329,5 +388,6 @@
 
 </body>
 </html>
+
 
 
